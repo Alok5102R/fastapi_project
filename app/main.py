@@ -1,6 +1,6 @@
 # app/main.py
 from fastapi import FastAPI
-from app.api.v1 import user_controller, item_controller  # Importing routers
+from app.api.v1 import user_controller, item_controller, cache_controller, secure_controller  # Importing routers
 
 def create_app() -> FastAPI:
     app = FastAPI(
@@ -14,6 +14,9 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(user_controller.router, prefix="/api/v1/users", tags=["Users"])
     app.include_router(item_controller.router, prefix="/api/v1/items")
+    app.include_router(cache_controller.router, prefix="/api/v1/cache")
+    app.include_router(secure_controller.router, prefix="/api/v1/secure")
+
 
     return app
 

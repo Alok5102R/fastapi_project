@@ -1,23 +1,22 @@
-# Configuration settings will be here using pydantic like env keys and other required settings
-# app/core/config.py
-from pydantic import BaseSettings, Field
+from pydantic import BaseModel
+from pydantic_settings import BaseSettings
 from typing import List
 
 class Settings(BaseSettings):
     # Application settings
     app_name: str = "Production Ready FastAPI"
-    environment: str = Field(..., env="ENVIRONMENT")  # 'development', 'staging', 'production'
+    environment: str
     debug: bool = False
 
     # Database settings
-    database_url: str = Field(..., env="DATABASE_URL")  # e.g., mysql://user:password@localhost:3306/mydatabase
+    database_url: str
 
     # Security settings
-    secret_key: str = Field(..., env="SECRET_KEY")
-    allowed_hosts: List[str] = Field(default=["*"], env="ALLOWED_HOSTS")  # Example: ['localhost', 'example.com']
+    secret_key: str
+    ALLOWED_HOSTS: str = "*"
 
     # CORS settings
-    cors_origins: List[str] = Field(default=["*"], env="CORS_ORIGINS")
+    cors_origins: str = "*"
 
     class Config:
         env_file = ".env"

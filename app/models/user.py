@@ -2,6 +2,7 @@
 # app/models/user.py
 from sqlalchemy import Column, Integer, String
 from app.db.session import Base
+from pydantic import BaseModel, Field
 
 class User(Base):
     __tablename__ = "users"
@@ -10,3 +11,10 @@ class User(Base):
     username = Column(String(50), unique=True, index=True, nullable=False)
     email = Column(String(50), unique=True, index=True, nullable=False)
     hashed_password = Column(String(100), nullable=False)
+
+
+class UserSchema(BaseModel):
+    id: int | None =  None
+    username: str
+    email: str = Field(..., pattern=r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+    hashed_password: str

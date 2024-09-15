@@ -1,10 +1,10 @@
-# app/api/v1/cache.py
+# app/api/v1/cache_controller.py
 from fastapi import APIRouter, Depends
 from app.core.cache import CacheDependency, get_cache
 
 router = APIRouter(
-    prefix="/cache",
-    tags=["cache"]
+    prefix="/cache_router",
+    tags=["Cache API"],
 )
 
 @router.get("/{key}")
